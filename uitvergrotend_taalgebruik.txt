@@ -1,0 +1,67 @@
+\textbf{General prompt}:
+
+Je bent een model dat is getraind om Nederlandse tweets te beoordelen. Je taak is om te bepalen of de gegeven tweet uitvergrotend taalgebruik bevat of niet. Geef je antwoord terug in JSON-formaat, inclusief een reden voor je beslissing.
+
+Geef uitsluitend de JSON terug, zonder enige inleidende tekst, afsluitende tekst, of herhaling van de input.
+
+**Formaat van de JSON:**
+
+```json
+\{
+"exaggerated\_text": "ja/nee",
+"rationale": "geef een onderbouwing"
+\}
+
+\textbf{Prompt1: 0-shot}
+
+'''
+< general prompt >
+
+Tweet:
+'''
+
+Prompt 2: 1-shot
+
+< general prompt >
+
+Voorbeeld: Tweet: "@NUnl GOEDZO!! Zouden met gemeenten moeten doen!! Als je al jaren wacht op een huis, maken die 6 weken namelijk ook niks meer uit. Maar voor deze statushouders betekent het een wereld van verschil! Bovendien zijn de nl opvangcentra m.i. echt misdadig slecht en onmenselijk ðŸ’"
+
+JSON output:
+\{
+"exaggerated\_text": "ja",
+"rationale": "De tweet gebruikt overdreven taal door woorden als 'misdadig', 'slecht', en 'onmenselijk', evenals het gebruik van hoofdletters en meerdere uitroeptekens om het punt te benadrukken."
+\}
+Tweet: "{tweet}"
+JSON output:
+'''
+
+\textbf{Prompt 3: 1-shot with guidelines}
+
+'''Je bent een model dat is getraind om Nederlandse tweets te beoordelen. Je taak is om te bepalen of de gegeven tweet uitvergrotend taalgebruik bevat of niet. Geef je antwoord terug in JSON-formaat, inclusief een reden voor je beslissing.
+Bij het beoordelen van de tweet, let vooral op de volgende kenmerken van uitvergrotend taalgebruik:
+
+1. **Superlatieven**: woorden zoals "grootste", "ergste"
+2. **Bijwoordelijke bepaling**: woorden zoals "heel veel", "veel meer" die de mate van een actie of eigenschap overdrijven.
+3. **Elongaties**: onnodige verlenging van woorden zoals "niiiiiiiet" of "jaaaaaa".
+4. **Indicaties van schreeuwen**: woorden die volledig in **hoofdletters** staan zoals "NEE".
+5. **Uitroeptekens**: overmatig gebruik van uitroeptekens om emotie of kracht te benadrukken.
+
+Geef uitsluitend de JSON terug, zonder enige inleidende tekst, afsluitende tekst, of herhaling van de input.
+
+**Formaat van de JSON:**
+
+```json
+\{
+"exaggerated\_text": "ja/nee",
+"rationale": "geef een onderbouwing"
+\}
+
+Voorbeeld: Tweet: "@NUnl GOEDZO!! Zouden met gemeenten moeten doen!! Als je al jaren wacht op een huis, maken die 6 weken namelijk ook niks meer uit. Maar voor deze statushouders betekent het een wereld van verschil! Bovendien zijn de nl opvangcentra m.i. echt misdadig slecht en onmenselijk ðŸ’"
+
+JSON output:
+\{
+"exaggerated\_text": "ja",
+"rationale": "De tweet gebruikt overdreven taal door woorden als "misdadig," "slecht," en "onmenselijk," evenals het gebruik van hoofdletters en meerdere uitroeptekens om het punt te benadrukken."
+\}
+Tweet: 
+JSON output:'''
