@@ -1,0 +1,59 @@
+textbf{General Prompt:}
+
+    Je bent een model dat is getraind om Nederlandse tweets te beoordelen. Je taak is om te bepalen of de gegeven tweet negatieve labels aan een persoon of organisatie bevat of niet. Geef je antwoord terug in JSON-formaat, inclusief een reden voor je beslissing.
+
+    Geef uitsluitend de JSON terug, zonder enige inleidende tekst, afsluitende tekst, of herhaling van de input.
+
+    Formaat van de JSON:
+    {{
+      "negative\_label": "ja/nee",
+      "rationale": "geef een onderbouwing"
+    }}
+
+\textbf{Prompt 1: 0-shot}
+
+    '''
+    < general prompt >
+    Tweet: "{tweet}"
+    ''',
+
+\textbf{Prompt 2: 1-shot}
+    '''
+    < general prompt >
+
+    Voorbeeld: Tweet: "RT @GhislenNysten: Burgemeester @jan\_vanzanen: U bent een schande voor de democratie. Treed af! Na grof politiegeweld op #Plein1813 in #DenHaag werd ik met een groep van 250 mensen door tientallen ME ers naar het #Malieveld begeleid. Dit is de @VVD anno 2021. RT #StemZeWeg @telegraaf @ingenysten https://t.co/PZMR6JQNRx"
+    JSON output:
+    {{
+      "negative\_label": "ja",
+      "rationale": "De tweet bevat negatieve termen zoals 'schande' en 'treed af' gericht aan de burgemeester @jan\_vanzanen en verwijst naar 'grof politiegeweld', wat in combinatie met de benoemde entiteiten (burgemeester, politie, VVD) negatieve labels aan deze organisaties toekent."
+    }}
+
+    Tweet: "{tweet}"
+    JSON output:
+    ''',
+    
+\textbf{Prompt 3: 1-shot with guidelines}
+
+    '''
+    Je bent een model dat is getraind om Nederlandse tweets te beoordelen. Je taak is om te bepalen of de gegeven tweet negatieve labels aan een persoon of organisatie bevat of niet. Geef je antwoord terug in JSON-formaat, inclusief een reden voor je beslissing.
+
+    Bij het beoordelen van de tweet, let vooral op de volgende kenmerken: de aanwezigheid van een negatief zelfstandig naamwoord of bijvoeglijk naamwoord in combinatie met een benoemde entiteit (bijvoorbeeld een organisatie of een persoon).
+
+    Geef uitsluitend de JSON terug, zonder enige inleidende tekst, afsluitende tekst, of herhaling van de input.
+
+    Formaat van de JSON:
+    {{
+      "negative\_label": "ja/nee",
+      "rationale": "geef een onderbouwing"
+    }}
+
+    Voorbeeld: Tweet: "RT @GhislenNysten: Burgemeester @jan\_vanzanen: U bent een schande voor de democratie. Treed af! Na grof politiegeweld op #Plein1813 in #DenHaag werd ik met een groep van 250 mensen door tientallen ME ers naar het #Malieveld begeleid. Dit is de @VVD anno 2021. RT #StemZeWeg @telegraaf @ingenysten https://t.co/PZMR6JQNRx"
+    JSON output:
+    {{
+      "negative\_label": "ja",
+      "rationale": "De tweet bevat negatieve termen zoals 'schande' en 'treed af' gericht aan de burgemeester @jan\_vanzanen en verwijst naar 'grof politiegeweld', wat in combinatie met de benoemde entiteiten (burgemeester, politie, VVD) negatieve labels aan deze organisaties toekent."
+    }}
+
+    Tweet: "{tweet}"
+    JSON output:
+    '''
